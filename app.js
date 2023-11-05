@@ -3,10 +3,21 @@ const json2xls = require('json2xls');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const app = express();
+const path = require("path");
 const port = 3000;
 
 // Enable JSON request body parsing
 app.use(bodyParser.json());
+
+app.get('/download-price-list', (req, res) => {
+  const filePath = path.join(__dirname, 'price-list.xlsx'); // Adjust the path if the file is in a different directory
+  res.download(filePath, 'price-list.xlsx', (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'File not found or download failed' });
+    }
+  });
+});
 
 // Define a route to handle JSON to Excel conversion
 app.post('/convert', (req, res) => {
