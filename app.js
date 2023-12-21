@@ -7,6 +7,7 @@ const path = require("path");
 const port = 3000;
 
 // Enable JSON request body parsing
+app.use(bodyParser.urlencoded({extended: true, parameterLimit:100000, limit: '500mb'}))
 app.use(bodyParser.json());
 
 app.get('/download-price-list', (req, res) => {
