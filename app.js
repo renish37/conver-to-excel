@@ -7,6 +7,9 @@ const path = require("path");
 const port = 3000;
 
 // Enable JSON request body parsing
+app.use(express.json({ limit: '20mb' }));
+app.use(express.urlencoded({ limit: '20mb', extended: true }));
+
 app.use(bodyParser.json());
 
 app.get('/download-price-list', (req, res) => {
